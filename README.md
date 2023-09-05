@@ -117,7 +117,7 @@ profuzzbench_generate_csv.sh lightftp 4 aflnet results.csv 0
 profuzzbench_generate_csv.sh lightftp 4 aflnwe results.csv 1
 ```
 
-results.csv 文件应与下面的文本类似。该文件有六列，显示时间戳、主题程序、模糊器名称、运行索引、覆盖率类型及其值。该文件包含线路覆盖率和分支覆盖率随时间变化的信息。每个覆盖率类型都有两个值，分别为*_百分比 percentage (*_per) 和*_绝对数 absolute number (*_abs)。
+results.csv 文件应与下面的文本类似。该文件有六列，显示时间戳、主题程序、模糊器名称、运行索引、覆盖率类型及其值。该文件包含线路覆盖率和分支覆盖率随时间变化的信息。每个覆盖率类型都有两个值，分别为百分比 percentage(*_per) 和绝对数 absolute number(*_abs)。
 
 
 ```
@@ -139,7 +139,7 @@ cd $PFBENCH/results-lightftp
 profuzzbench_plot.py -i results.csv -p lightftp -r 4 -c 60 -s 1 -o cov_over_time.png
 ```
 
-这是由脚本生成的示例代码覆盖率报告。 ![Sample report](figures/cov_over_time.png)
+这是由脚本生成的示例代码覆盖率报告。 [Sample report](figures/cov_over_time.png)
 
 # 实用程序脚本
 
