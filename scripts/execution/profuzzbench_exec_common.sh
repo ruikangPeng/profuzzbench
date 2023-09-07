@@ -18,7 +18,7 @@ cids=()
 
 #create one container for each run
 for i in $(seq 1 $RUNS); do
-  id=$(docker run --cpus=1 -d -it $DOCIMAGE /bin/bash -c "cd ${WORKDIR} && run ${FUZZER} ${OUTDIR} '${OPTIONS}' ${TIMEOUT} ${SKIPCOUNT}")
+  id=$(sudo docker run --cpus=1 -d -it $DOCIMAGE /bin/bash -c "cd ${WORKDIR} && run ${FUZZER} ${OUTDIR} '${OPTIONS}' ${TIMEOUT} ${SKIPCOUNT}")
   cids+=(${id::12}) #store only the first 12 characters of a container ID
 done
 
@@ -30,7 +30,7 @@ done
 #wait until all these dockers are stopped
 printf "\n${FUZZER^^}: Fuzzing in progress ..."
 printf "\n${FUZZER^^}: Waiting for the following containers to stop: ${dlist}"
-docker wait ${dlist} > /dev/null
+sudo docker wait ${dlist} > /dev/null
 wait
 
 #collect the fuzzing results from the containers
@@ -38,10 +38,10 @@ printf "\n${FUZZER^^}: Collecting results and save them to ${SAVETO}"
 index=1
 for id in ${cids[@]}; do
   printf "\n${FUZZER^^}: Collecting results from container ${id}"
-  docker cp ${id}:/home/ubuntu/experiments/${OUTDIR}.tar.gz ${SAVETO}/${OUTDIR}_${index}.tar.gz > /dev/null
+  sudo docker cp ${id}:/home/ubuntu/experiments/${OUTDIR}.tar.gz ${SAVETO}/${OUTDIR}_${index}.tar.gz > /dev/null
   if [ ! -z $DELETE ]; then
     printf "\nDeleting ${id}"
-    docker rm ${id} # Remove container now that we don't need it
+    sudo docker rm ${id} # Remove container now that we don't need it
   fi
   index=$((index+1))
 done
